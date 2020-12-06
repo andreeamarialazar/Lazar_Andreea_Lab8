@@ -25,15 +25,16 @@ namespace Lazar_Andreea_Lab8.Pages.Books
         public int CategoryID { get; set; }
         public async Task OnGetAsync(int? id, int? CategoryID)
         {
-            BookD = new BookData();
-
-            BookD.Books = await _context.Book
+            BookD = new BookData
+            {
+                Books = await _context.Book
             .Include(b => b.Publisher)
             .Include(b => b.BookCategories)
             .ThenInclude(b => b.Category)
             .AsNoTracking()
             .OrderBy(b => b.Title)
-            .ToListAsync();
+            .ToListAsync()
+            };
 
             if (id != null)
             {
